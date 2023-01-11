@@ -1,0 +1,3 @@
+- convert from books to mock employees
+	- server.ts GET /employees
+	- model.ts: getEmployees()
