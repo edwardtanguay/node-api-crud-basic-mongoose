@@ -19,3 +19,36 @@ content-type: application/json
 
 ### DELETE EMPLOYEE
 DELETE {{url}}/employee/63bf5b755a88a52a71dfc65f
+
+### EDIT EMPLOYEE
+PUT {{url}}/employee/63bf5ba38f1be6ad93d494e5
+content-type: application/json
+
+{
+	"lastName": "CHANGED-LAST-NAME",
+	"firstName": "CHANGED-FIRST-NAME",
+	"title": "Sales Representative333",
+	"notes": "The name of this employee has changed."
+}
+
+### EDIT NON-EXISTENT EMPLOYEE
+PUT {{url}}/employee/93bf5ba38f1be6ad93d494e5
+content-type: application/json
+
+{
+	"lastName": "CHANGED-LAST-NAME",
+	"firstName": "CHANGED-FIRST-NAME",
+	"title": "Sales Representative",
+	"notes": "The name of this employee has changed."
+}
+
+### EDIT MALFORMED ID
+PUT {{url}}/employee/nnn
+content-type: application/json
+
+{
+	"lastName": "CHANGED-LAST-NAME",
+	"firstName": "CHANGED-FIRST-NAME",
+	"title": "Sales Representative",
+	"notes": "The name of this employee has changed."
+}

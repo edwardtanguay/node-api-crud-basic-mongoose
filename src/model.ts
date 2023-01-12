@@ -29,7 +29,7 @@ export const addEmployee = async (employeeData: IEmployee) => {
 			resolve({
 				status: "success",
 				newId: addedEmployee._id
-			})
+			});
 		}
 		catch (e) {
 			reject(e);
@@ -51,13 +51,45 @@ export const deleteEmployee = async (id: string) => {
 				reject({
 					status: "error",
 					message: `item with id "${id}" was not deleted`
-				})
+				});
 			}
 		}
 		catch (e) {
 			reject(e);
 		}
-	})
+	});
+}
+
+export const editEmployee = async (id: string, employee: IEmployee) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const oldEmployee = await Employee.find({ _id: id });
+			await Employee.updateOne({ _id: id }, { $set: { ...employee } });
+			const newEmployee = await Employee.find({ _id: id });
+			if (Array.isArray(oldEmployee) && oldEmployee.length === 0) {
+				reject({
+					status: "error",
+					message: `employee with id "${id}" not found`
+				});
+			} else {
+				resolve({
+					status: 'success',
+					oldEmployee,
+					newEmployee
+				})
+			}
+		}
+		catch (e) {
+			if (e.name === 'CastError') {
+				reject({
+					status: "error",
+					message: e.message
+				})
+			} else {
+				reject(e);
+			}
+		}
+	});
 }
 
 export const getApiInstructions = () => {
