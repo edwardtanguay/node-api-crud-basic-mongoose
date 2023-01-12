@@ -1,15 +1,24 @@
 import { IEmployee } from "./interfaces.js";
+import { Employee } from './models/Employee.js';
 
-export const getEmployees = (): IEmployee[] => {
-	const employees: IEmployee[] = [
-		{
-			firstName: "Hans"
-		},
-		{
-			firstName: "Franz"
+
+export const getEmployees = async () => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const employees: IEmployee[] = await Employee.find().select('firstName lastName title notes');
+			if (employees.length > 0) {
+				resolve(employees);
+			} else {
+				resolve({
+					status: "error",
+					message: "collection not found"
+				});
+			}
 		}
-	];
-	return employees;
+		catch (e) {
+			reject(e);
+		}
+	})
 }
 
 export const getApiInstructions = () => {
