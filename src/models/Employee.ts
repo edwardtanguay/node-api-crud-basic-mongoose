@@ -6,6 +6,6 @@ const employeeSchema = new mongoose.Schema<IEmployee>({
 	lastName: String,
 	title: String,
 	notes: String
-});
+}, {versionKey: false});
 
 export const Employee = mongoose.model('employee', employeeSchema);

@@ -21,6 +21,22 @@ export const getEmployees = async () => {
 	})
 }
 
+export const addEmployee = async (employeeData: IEmployee) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const employee = new Employee(employeeData);
+			const addedEmployee = await employee.save();
+			resolve({
+				status: "success",
+				newId: addedEmployee._id
+			})
+		}
+		catch (e) {
+			reject(e);
+		}
+	})
+}
+
 export const getApiInstructions = () => {
 	return `
 <style>
