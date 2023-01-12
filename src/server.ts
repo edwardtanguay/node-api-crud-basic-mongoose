@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import * as config from './config.js';
 import mongoose from 'mongoose';
+import { IEmployee } from './interfaces.js';
 
 mongoose.set("strictQuery", false);
 mongoose.connect('mongodb://localhost/northwind');
@@ -16,7 +17,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 app.get('/employees', async (req: express.Request, res: express.Response) => {
 	try {
-		const employees = await model.getEmployees();
+		const employees = (await model.getEmployees() as IEmployee[]);
 		res.json(employees);
 	}
 	catch (e) {

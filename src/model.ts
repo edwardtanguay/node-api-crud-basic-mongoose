@@ -3,7 +3,7 @@ import { Employee } from './models/Employee.js';
 
 
 export const getEmployees = async () => {
-	return new Promise(async (resolve, reject) => {
+	return new Promise<IEmployee[] | {}>(async (resolve, reject) => {
 		try {
 			const employees: IEmployee[] = await Employee.find().select('firstName lastName title notes');
 			if (employees.length > 0) {
