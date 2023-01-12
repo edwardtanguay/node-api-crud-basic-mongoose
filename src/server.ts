@@ -37,6 +37,17 @@ app.post('/employee', async (req: express.Request, res: express.Response) => {
 	}
 });
 
+app.delete('/employee/:id', async (req: express.Request, res: express.Response) => {
+	try {
+		const _id = req.params.id;
+		const result = await model.deleteEmployee(_id);
+		res.status(200).send(result);
+	}
+	catch (e) {
+		res.status(500).send(e);
+	}
+})
+
 app.listen(config.port, () => {
 	console.log(`listening on port http://localhost:${config.port}`);
 });

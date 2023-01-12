@@ -34,6 +34,29 @@ export const addEmployee = async (employeeData: IEmployee) => {
 		catch (e) {
 			reject(e);
 		}
+	});
+}
+
+export const deleteEmployee = async (id: string) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const employee = await Employee.find({ id });
+			const result = await Employee.deleteOne({ _id: id });
+			if (result.deletedCount === 1) {
+				resolve({
+					status: "success",
+					message: `item with id "${id}" was deleted`
+				})
+			} else {
+				reject({
+					status: "error",
+					message: `item with id "${id}" was not deleted`
+				})
+			}
+		}
+		catch (e) {
+			reject(e);
+		}
 	})
 }
 
